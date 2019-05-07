@@ -12,13 +12,12 @@ protected:
     virtual void calculateRatios() = 0;
 
 public:
-    void add_point(double x, double y)
+    void addPoint(double x, double y)
     {
         points[x] = y;
-        if (points.size() > 2)
-            calculateRatios();
+        calculateRatios();
     }
-    virtual double getValue(double x) = 0;
+    virtual double getY(double x) = 0;
 };
 
 

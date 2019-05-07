@@ -1,13 +1,13 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-
+#include "Interpolation.h"
 
 class Engine
 {
 private:
     double I; // moment inertia
-    double V_M; // x - rotation speed (V), y - torque (M)
+    Interpolation *V_M; // x - rotation speed (V), y - torque (M)
     double T_over; // overheating temperature
     double H_m; // coefficient of heating rate versus torque
     double H_v; // coefficient of heating rate versus speed of crankshaft rotation
@@ -30,7 +30,7 @@ private:
 
     double get_M(double V)
     {
-        return;
+        return 0;
     }
 
 public:
@@ -39,8 +39,5 @@ public:
 
     }
 };
-
-Engine::~Engine()
-{}
 
 #endif // ENGINE_H

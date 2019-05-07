@@ -1,26 +1,56 @@
 #ifndef LINEARINTERPOLATION_H
 #define LINEARINTERPOLATION_H
 
+#include <iostream>
+#include <vector>
 #include "Interpolation.h"
 
-class LightsCommand : public Interpolation
+using namespace std;
+
+class LinearInterpolation : public Interpolation
 {
 private:
+    // y = f(x) = k[n] * x + b[n], n - count point
+    vector<double> k; // angular coefficient
+    vector<double> b; // additional constant
+
     void calculateRatios()
-    {
-
-    }
-
-public:
-    double getValue(double x)
     {
         if (points.size() > 2)
         {
 
         }
-        else
+    }
+
+public:
+    double getY(double x)
+    {
+        if (points.empty()) // size = 0
         {
-            throw "must be entered points more than one";
+            try
+            {
+                throw "no interpolation points";
+            }
+            catch (const char *exception)
+            {
+                cerr << exception << endl;
+            }
+        }
+        else if (points.size() = 1) // size = 1
+        {
+            return (*points.begin()).second;
+        }
+        else // size > 1
+        {
+            auto it = points.find(x);
+            if (it != points.end())
+            {
+                return (*it).second;
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 };
