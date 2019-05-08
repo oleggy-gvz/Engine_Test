@@ -10,7 +10,9 @@ int main()
     l->addPoint(1, 1);
     l->addPoint(3, 2);
     l->addPoint(4, 2);
-    //cout << l->getFunction(0) << endl;
+    cout << l->getFunction(1.1) << endl;
+
+    delete l;
 
     return 0;
 }
