@@ -2,6 +2,7 @@
 #define INTERPOLATION_H
 
 #include <map>
+#include <vector>
 
 using namespace std;
 
