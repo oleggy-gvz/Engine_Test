@@ -19,23 +19,17 @@ private:
     {
         if (points.size() > 1)
         {
-            auto it_p1 = points.begin();
-            auto it_p2 = it_p1;
-            ++it_p2;
-
-            // clean old ratios
-            a_n.clear();
+            a_n.clear(); // clean old ratios
             b_n.clear();
 
-            double b, k;
-            for (int i = 0; it_p2 != points.end(); i++)
+            auto it_p1 = points.begin();
+            auto it_p2 = it_p1;
+            for (++it_p2; it_p2 != points.end(); ++it_p1, ++it_p2)
             {
-                k = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
-                b = it_p1->second - k * it_p1->first;
-                a_n.push_back(k);
+                double a = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
+                double b = it_p1->second - a * it_p1->first;
+                a_n.push_back(a);
                 b_n.push_back(b);
-                ++it_p1;
-                ++it_p2;
             }
         }
     }
@@ -49,18 +43,17 @@ public:
         }
         else
         {   
-            auto it = points.begin();
-            double less = it->first;
-            if (x < it->first)
+            auto it_first = points.begin();
+            if (x < it_first->first)
             {
                 throw Exception(Exception::LESS_FIRST_X);
             }
-            it = points.end();
-            if (x > it->first)
+            auto it_last = points.rbegin();
+            if (x > it_last->first)
             {
                 throw Exception(Exception::MORE_LAST_X);
             }
-            it = points.find(x);
+            auto it = points.find(x);
             if (it != points.end())
             {
                 return it->second;
