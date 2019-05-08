@@ -17,7 +17,7 @@ public:
         points[x] = y;
         calculateRatios();
     }
-    virtual double getF(double x) = 0;
+    virtual double getFunction(double x) = 0;
 };
 
 
