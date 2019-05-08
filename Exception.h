@@ -55,8 +55,6 @@ public:
 
 #else
 
-
-
 class Exception: public exception
 {
 private:
@@ -68,19 +66,26 @@ public:
     {
     }
 
+    enum ExceptionType
+    {
+        NO_POINTS,
+        BELOW_LOWER_VALUE,
+        ABOVE_UPPER_VALUE,
+    };
+
     Exception(ExceptionType error)
     {
         switch(error)
         {
-        case ExceptionType::NO_POINTS:
+        case NO_POINTS:
             m_error = "for interpolation, the number of points must be more than one";
             break;
 
-        case ExceptionType::BELOW_LOWER_VALUE:
+        case BELOW_LOWER_VALUE:
             m_error = "out of interpolation range: below the lower interpolation value";
             break;
 
-        case ExceptionType::ABOVE_UPPER_VALUE:
+        case ABOVE_UPPER_VALUE:
             m_error = "out of interpolation range: above the upper interpolation value";
             break;
         }
@@ -90,13 +95,6 @@ public:
     {
         return m_error.c_str();
     }
-
-    enum ExceptionType
-    {
-        NO_POINTS,
-        BELOW_LOWER_VALUE,
-        ABOVE_UPPER_VALUE,
-    };
 };
 
 #endif

@@ -27,17 +27,17 @@ public:
     {
         if (points.size() < 2)
         {
-            throw Exception(ExceptionType::NO_POINTS);
+            throw Exception(Exception::NO_POINTS);
         }
         else
         {   
             if (x < (points.begin())->first)
             {
-                throw Exception(ExceptionType::BELOW_LOWER_VALUE);
+                throw Exception(Exception::BELOW_LOWER_VALUE);
             }
             if (x > (points.end())->first)
             {
-                throw Exception(ExceptionType::ABOVE_UPPER_VALUE);
+                throw Exception(Exception::ABOVE_UPPER_VALUE);
             }
             auto it = points.find(x);
             if (it != points.end())
