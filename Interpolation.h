@@ -2,6 +2,7 @@
 #define INTERPOLATION_H
 
 #include <map>
+#include "Exception.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ public:
         points[x] = y;
         calculateRatios();
     }
-    virtual double getY(double x) = 0;
+    virtual double getF(double x) = 0;
 };
 
 

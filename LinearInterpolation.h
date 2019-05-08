@@ -10,7 +10,7 @@ using namespace std;
 class LinearInterpolation : public Interpolation
 {
 private:
-    // y = f(x) = k[n] * x + b[n], n - count point
+    // f(x) = k[n] * x + b[n], n - count point
     vector<double> k; // angular coefficient
     vector<double> b; // additional constant
 
@@ -23,33 +23,30 @@ private:
     }
 
 public:
-    double getY(double x)
+    double getF(double x)
     {
-        if (points.empty()) // size = 0
+        if (points.size() < 2)
         {
-            try
-            {
-                throw "no interpolation points";
-            }
-            catch (const char *exception)
-            {
-                cerr << exception << endl;
-            }
+            throw Exception(ExceptionType::NO_POINTS);
         }
-        else if (points.size() = 1) // size = 1
-        {
-            return (*points.begin()).second;
-        }
-        else // size > 1
-        {
+        else
+        {   
+            if (x < (points.begin())->first)
+            {
+                throw Exception(ExceptionType::BELOW_LOWER_VALUE);
+            }
+            if (x > (points.end())->first)
+            {
+                throw Exception(ExceptionType::ABOVE_UPPER_VALUE);
+            }
             auto it = points.find(x);
             if (it != points.end())
             {
-                return (*it).second;
+                return it->second;
             }
             else
             {
-                return -1;
+
             }
         }
     }

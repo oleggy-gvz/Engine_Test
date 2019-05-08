@@ -9,4 +9,5 @@ SOURCES += \
 HEADERS += \
     LinearInterpolation.h \
     Interpolation.h \
-    Engine.h
+    Engine.h \
+    Exception.h
