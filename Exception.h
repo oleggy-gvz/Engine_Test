@@ -69,8 +69,8 @@ public:
     enum ExceptionType
     {
         NO_POINTS,
-        BELOW_LOWER_VALUE,
-        ABOVE_UPPER_VALUE,
+        LESS_FIRST_X,
+        MORE_LAST_X,
     };
 
     Exception(ExceptionType error)
@@ -81,11 +81,11 @@ public:
             m_error = "for interpolation, the number of points must be more than one";
             break;
 
-        case BELOW_LOWER_VALUE:
+        case LESS_FIRST_X:
             m_error = "out of interpolation range: below the lower interpolation value";
             break;
 
-        case ABOVE_UPPER_VALUE:
+        case MORE_LAST_X:
             m_error = "out of interpolation range: above the upper interpolation value";
             break;
         }

@@ -9,7 +9,7 @@ int main()
 
     l->addPoint(1, 1);
     l->addPoint(3, 2);
-    cout << l->getF(4) << endl;
+    cout << l->getF(0) << endl;
 
     return 0;
 }

@@ -2,7 +2,6 @@
 #define INTERPOLATION_H
 
 #include <map>
-#include "Exception.h"
 
 using namespace std;
 

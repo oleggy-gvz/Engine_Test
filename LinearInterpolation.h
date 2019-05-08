@@ -1,9 +1,10 @@
-#ifndef LINEARINTERPOLATION_H
-#define LINEARINTERPOLATION_H
+#ifndef LINEAR_INTERPOLATION_H
+#define LINEAR_INTERPOLATION_H
 
 #include <iostream>
 #include <vector>
 #include "Interpolation.h"
+#include "Exception.h"
 
 using namespace std;
 
@@ -33,11 +34,11 @@ public:
         {   
             if (x < (points.begin())->first)
             {
-                throw Exception(Exception::BELOW_LOWER_VALUE);
+                throw Exception(Exception::LESS_FIRST_X);
             }
             if (x > (points.end())->first)
             {
-                throw Exception(Exception::ABOVE_UPPER_VALUE);
+                throw Exception(Exception::MORE_LAST_X);
             }
             auto it = points.find(x);
             if (it != points.end())
@@ -53,4 +54,4 @@ public:
 };
 
 
-#endif // LINEARINTERPOLATION_H
+#endif // LINEAR_INTERPOLATION_H
