@@ -16,6 +16,7 @@ enum class ExceptionType
     NO_POINTS,
     BELOW_LOWER_VALUE,
     ABOVE_UPPER_VALUE,
+    WRONG_POINTS,
 };
 
 class Exception: public exception
@@ -71,6 +72,7 @@ public:
         NO_POINTS,
         LESS_FIRST_X,
         MORE_LAST_X,
+        WRONG_POINTS,
     };
 
     Exception(ExceptionType error)
@@ -87,6 +89,10 @@ public:
 
         case MORE_LAST_X:
             m_error = "out of interpolation range: above the upper interpolation value";
+            break;
+
+        case WRONG_POINTS:
+            m_error = "not all coordinates of points entered";
             break;
         }
     }

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <memory>
 #include "Interpolation.h"
-#include "Exception.h"
 
 using namespace std;
 
@@ -15,7 +14,6 @@ private:
     vector<double> a; // angular coefficient
     vector<double> b; // additional constant
     map<double, unsigned int> segments;
-    shared_ptr<vector<double>> x, y;
 
     void calculateRatios()
     {
@@ -28,7 +26,7 @@ private:
             auto it_p1 = points.begin();
             auto it_p2 = it_p1;
             ++it_p2;
-            for (int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++)
+            for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++)
             {
                 double a_cur = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
                 double b_cur = it_p1->second - a_cur * it_p1->first;
@@ -40,10 +38,9 @@ private:
     }
 
 public:
-    LinearInterpolation(vector<double> *_x, vector<double> *_y)
-        : x(_x), y(_y)
+    LinearInterpolation(std::initializer_list<double> x, std::initializer_list<double> y)
     {
-
+        setPoints(x, y);
     }
 
     double getFunction(double x)
@@ -56,14 +53,12 @@ public:
         {   
             auto it_first = points.begin();
             if (x < it_first->first)
-            {
                 throw Exception(Exception::LESS_FIRST_X);
-            }
+
             auto it_last = points.rbegin();
             if (x > it_last->first)
-            {
                 throw Exception(Exception::MORE_LAST_X);
-            }
+
             auto it = points.find(x);
             if (it != points.end())
             {
