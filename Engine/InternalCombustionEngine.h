@@ -10,9 +10,9 @@ class InternalCombustionEngine : public Engine
         return get_M() * H_m + V * V * H_v;
     }
 
-    double get_V_c(double t_envir) // cooling rate
+    double get_V_c() // cooling rate
     {
-        return C * (t_envir - T_engine);
+        return C * (T_enver - T_engine);
     }
 
     double get_a() // acceleration
@@ -29,12 +29,13 @@ public:
         H_m = _H_m;
         H_v = _H_v;
         C = _C;
+        enable = false;
     }
 
     void Enable()
     {
-        SetRotationSpeed(0);
         enable = true;
+        SetRotationSpeed(0);
     }
 
     void Disable()
@@ -50,8 +51,6 @@ public:
             V = _V;
         }
     }
-
-    ~InternalCombustionEngine() {}
 };
 
 #endif // INTERNAL_COMBUSTION_ENGINE_H

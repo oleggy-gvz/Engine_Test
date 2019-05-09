@@ -11,6 +11,7 @@ protected:
 
     // temperature parameters
     double T_engine; // current engine temperature
+    double T_enver; // current temperature
     double T_over; // overheating temperature
     double H_m; // coefficient of heating rate versus torque
     double H_v; // coefficient of heating rate versus speed of crankshaft rotation
@@ -21,21 +22,45 @@ protected:
     double V; // current crankshaft rotation speed
     double I; // moment inertia
 
-    double get_M()  { return M_V->getFunction(V); } // get current torque
+    double get_M() // get current torque
+    {
+        return M_V->getFunction(V);
+    }
 
     virtual double get_V_h() = 0; // get engine heating rate
-    virtual double get_V_c(double t_envir) = 0; // get engine cooling rate
-    virtual double get_a(); // get acceleration
+    virtual double get_V_c() = 0; // get engine cooling rate
+    virtual double get_a() = 0; // get acceleration
 
 public:
-    void setTemperatureEngine(double t) { T_engine = t; }
-    double getTemperatureEngine() { return T_engine; }
-    bool getOverheatingEngine() { return T_engine > T_over; }
+    void setTemperature(double _T)
+    {
+        T_engine = _T;
+    }
+
+    void setTemperatureEnvironment(double _T)
+    {
+        T_enver = _T;
+    }
+
+    double getTemperature()
+    {
+        return T_engine;
+    }
+
+    bool getOverheatingStatus()
+    {
+        return T_engine > T_over;
+    }
 
     virtual void Enable() = 0;
     virtual void Disable() = 0;
     virtual void SetRotationSpeed(double _V) = 0;
-    virtual ~Engine() {}
+
+    void DelayTime(double sec)
+    {
+        T_engine += sec * get_V_h();
+        T_engine += sec * get_V_c();
+    }
 };
 
 #endif // ENGINE_H

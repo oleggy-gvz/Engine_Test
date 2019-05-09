@@ -67,11 +67,11 @@ public:
                 throw Exception(Exception::MORE_LAST_X);
             }
             auto it = points.find(x);
-            if (it != points.end())
+            if (it != points.end()) // if the point is in table
             {
                 return it->second;
             }
-            else
+            else // else, calculate independently
             {
                 auto it_n = segments.upper_bound(x);
                 return a[it_n->second] * x + b[it_n->second];

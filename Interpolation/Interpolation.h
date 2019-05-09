@@ -10,7 +10,7 @@ using namespace std;
 class Interpolation
 {
 protected:
-    map<double, double> points;
+    map<double, double> points; // interpolation table
     virtual void calculateRatios() = 0;
 
 public:

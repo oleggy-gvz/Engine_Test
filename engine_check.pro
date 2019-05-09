@@ -11,4 +11,5 @@ HEADERS += \
     Interpolation/Interpolation.h \
     Engine/Engine.h \
     Exception/Exception.h \
-    Engine/InternalCombustionEngine.h
+    Engine/InternalCombustionEngine.h \
+    Environment/Environment.h
