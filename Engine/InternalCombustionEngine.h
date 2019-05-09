@@ -5,29 +5,53 @@
 
 class InternalCombustionEngine : public Engine
 {
-private:
-    double get_a(double m) // acceleration
+    double get_V_h() // heating rate
     {
-        return m / I;
+        return get_M() * H_m + V * V * H_v;
     }
 
-    double get_V_h(double m, double v) // heating rate
+    double get_V_c(double t_envir) // cooling rate
     {
-        return m * H_m + v * v * H_v;
+        return C * (t_envir - T_engine);
     }
 
-    double get_V_c(double t_envir, double t_engine) // cooling rate
+    double get_a() // acceleration
     {
-        return C * (t_envir - t_engine);
-    }
-
-    double get_M(double V)
-    {
-        return 0;
+        return get_M() / I;
     }
 
 public:
-    virtual void Enable() = 0;
+    InternalCombustionEngine(double _I, Interpolation *_M_V, double _T_over, double _H_m, double _H_v, double _C)
+    {
+        I = _I;
+        M_V = shared_ptr<Interpolation>(_M_V);
+        T_over = _T_over;
+        H_m = _H_m;
+        H_v = _H_v;
+        C = _C;
+    }
+
+    void Enable()
+    {
+        SetRotationSpeed(0);
+        enable = true;
+    }
+
+    void Disable()
+    {
+        SetRotationSpeed(0);
+        enable = false;
+    }
+
+    void SetRotationSpeed(double _V)
+    {
+        if (enable)
+        {
+            V = _V;
+        }
+    }
+
+    ~InternalCombustionEngine() {}
 };
 
 #endif // INTERNAL_COMBUSTION_ENGINE_H

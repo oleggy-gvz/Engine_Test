@@ -58,12 +58,14 @@ public:
         {   
             auto it_first = points.begin();
             if (x < it_first->first)
+            {
                 throw Exception(Exception::LESS_FIRST_X);
-
+            }
             auto it_last = points.rbegin();
             if (x > it_last->first)
+            {
                 throw Exception(Exception::MORE_LAST_X);
-
+            }
             auto it = points.find(x);
             if (it != points.end())
             {
@@ -71,9 +73,8 @@ public:
             }
             else
             {
-                auto it_index = segments.upper_bound(x);
-                unsigned int n = it_index->second;
-                return a[n] * x + b[n];
+                auto it_n = segments.upper_bound(x);
+                return a[it_n->second] * x + b[it_n->second];
             }
         }
     }

@@ -23,7 +23,9 @@ public:
     void setPoints(initializer_list<double> x, initializer_list<double> y)
     {
         if (x.size() != y.size())
+        {
             throw Exception(Exception::WRONG_SIZE);
+        }
 
         points.clear();
         auto it_x = x.begin();
@@ -39,7 +41,9 @@ public:
     {
         points.clear();
         for(const auto& item : p)
+        {
             points[item.first] = item.second;
+        }
         calculateRatios();
     }
 
