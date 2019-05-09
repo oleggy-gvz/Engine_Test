@@ -7,7 +7,8 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-    LinearInterpolation.h \
-    Interpolation.h \
-    Engine.h \
-    Exception.h
+    Interpolation/LinearInterpolation.h \
+    Interpolation/Interpolation.h \
+    Engine/Engine.h \
+    Exception/Exception.h \
+    Engine/InternalCombustionEngine.h

@@ -72,7 +72,7 @@ public:
         NO_POINTS,
         LESS_FIRST_X,
         MORE_LAST_X,
-        WRONG_POINTS,
+        WRONG_SIZE,
     };
 
     Exception(ExceptionType error)
@@ -91,8 +91,8 @@ public:
             m_error = "out of interpolation range: above the upper interpolation value";
             break;
 
-        case WRONG_POINTS:
-            m_error = "not all coordinates of points entered";
+        case WRONG_SIZE:
+            m_error = "x and y arrays of coordinate do not match";
             break;
         }
     }

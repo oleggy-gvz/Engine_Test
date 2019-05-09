@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <memory>
-#include "Interpolation.h"
+#include "Interpolation\Interpolation.h"
 
 using namespace std;
 
@@ -41,6 +41,11 @@ public:
     LinearInterpolation(std::initializer_list<double> x, std::initializer_list<double> y)
     {
         setPoints(x, y);
+    }
+
+    LinearInterpolation(initializer_list<pair<double, double>> p)
+    {
+        setPoints(p);
     }
 
     double getFunction(double x)

@@ -3,7 +3,7 @@
 
 #include <map>
 #include <vector>
-#include "Exception.h"
+#include "Exception\Exception.h"
 
 using namespace std;
 
@@ -20,10 +20,10 @@ public:
         calculateRatios();
     }
 
-    void setPoints(std::initializer_list<double> x, std::initializer_list<double> y)
+    void setPoints(initializer_list<double> x, initializer_list<double> y)
     {
         if (x.size() != y.size())
-            throw Exception(Exception::WRONG_POINTS);
+            throw Exception(Exception::WRONG_SIZE);
 
         points.clear();
         auto it_x = x.begin();
@@ -32,6 +32,14 @@ public:
         {
             points[*it_x] = *it_y;
         }
+        calculateRatios();
+    }
+
+    void setPoints(initializer_list<pair<double, double>> p)
+    {
+        points.clear();
+        for(const auto& item : p)
+            points[item.first] = item.second;
         calculateRatios();
     }
 
