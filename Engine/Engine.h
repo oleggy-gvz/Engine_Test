@@ -4,6 +4,8 @@
 #include "Interpolation\Interpolation.h"
 #include <memory>
 
+class Environment;
+
 class Engine
 {
 protected:
@@ -31,16 +33,17 @@ protected:
     virtual double get_V_c() = 0; // get engine cooling rate
     virtual double get_a() = 0; // get acceleration
 
-public:
-    void setTemperature(double _T)
+    void setTemperature(double _T) // protected - becouse user cannot change engine temperature
     {
         T_engine = _T;
     }
 
-    void setTemperatureEnvironment(double _T)
+    void setTemperatureEnvironment(double _T) // protected - becouse user cannot change engine temperature
     {
         T_enver = _T;
     }
+
+public:
 
     double getTemperature()
     {
@@ -52,15 +55,21 @@ public:
         return T_engine > T_over;
     }
 
-    virtual void Enable() = 0;
-    virtual void Disable() = 0;
-    virtual void SetRotationSpeed(double _V) = 0;
-
-    void DelayTime(double sec)
+    virtual void turnOn() = 0;
+    virtual void turnOff() = 0;
+    bool isEnable()
     {
-        T_engine += sec * get_V_h();
-        T_engine += sec * get_V_c();
+       return enable;
     }
+    virtual void setRotationSpeed(double _V) = 0;
+
+    void timeStep(double sec)
+    {
+        T_engine += sec * get_V_h() + sec * get_V_c();
+    }
+    // environment could only change the temperature engine
+    friend void setTemperatureEnvironmentEngine(shared_ptr<Engine> engine, const Environment &envir);
+    friend void setTemperatureEngine(shared_ptr<Engine> engine, const Environment &envir);
 };
 
 #endif // ENGINE_H

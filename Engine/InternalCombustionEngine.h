@@ -32,19 +32,19 @@ public:
         enable = false;
     }
 
-    void Enable()
+    void turnOn()
     {
         enable = true;
-        SetRotationSpeed(0);
+        setRotationSpeed(0);
     }
 
-    void Disable()
+    void turnOff()
     {
-        SetRotationSpeed(0);
+        setRotationSpeed(0);
         enable = false;
     }
 
-    void SetRotationSpeed(double _V)
+    void setRotationSpeed(double _V)
     {
         if (enable)
         {

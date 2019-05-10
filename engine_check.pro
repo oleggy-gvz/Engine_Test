@@ -12,4 +12,6 @@ HEADERS += \
     Engine/Engine.h \
     Exception/Exception.h \
     Engine/InternalCombustionEngine.h \
-    Environment/Environment.h
+    Environment/Environment.h \
+    TestStand/Test.h \
+    TestStand/BasicTest.h

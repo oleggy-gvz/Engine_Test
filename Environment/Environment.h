@@ -1,8 +1,8 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
 
-#include "Engine\Engine.h"
 #include <memory>
+#include "Engine\Engine.h"
 
 class Environment
 {
@@ -25,23 +25,39 @@ public:
     void setTemperature(double t_enver)
     {
         T_enver = t_enver;
-        if (engine != nullptr)
+        if (engine != nullptr) // if engine is placed environment
         {
-            engine->setTemperatureEnvironment(T_enver);
+            setTemperatureEnvironmentEngine(engine, *this);
         }
     }
 
-    double getTemperature()
+    double getTemperature() const
     {
         return T_enver;
     }
 
-    double setEngine(Engine *_engine)
+    void setEngine(Engine *_engine)
     {
         engine = shared_ptr<Engine>(_engine);
-        engine->setTemperature(T_enver);
-        engine->setTemperatureEnvironment(T_enver);
+        setTemperatureEnvironmentEngine(engine, *this);
+        if (!engine->isEnable()) // if engine was off, its temperature is equal envirolment temperature
+        {
+            setTemperatureEngine(engine, *this);
+        }
     }
 };
 
+// friend methods for engine, becouse environment could only change temperature engine
+void setTemperatureEnvironmentEngine(shared_ptr<Engine> engine, const Environment &envir)
+{
+    engine->setTemperatureEnvironment(envir.getTemperature());
+}
+
+void setTemperatureEngine(shared_ptr<Engine> engine, const Environment &envir)
+{
+    engine->setTemperature(envir.getTemperature());
+}
+
 #endif // ENVIRONMENT_H
+
+
