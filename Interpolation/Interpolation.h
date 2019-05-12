@@ -10,7 +10,7 @@ using namespace std;
 class Interpolation
 {
 protected:
-    map<double, double> points; // interpolation table
+    map<double, double> points; // interpolation table: argument / value
     virtual void calculateRatios() = 0;
 
 public:
@@ -26,7 +26,6 @@ public:
         {
             throw Exception(Exception::WRONG_SIZE);
         }
-
         points.clear();
         auto it_x = x.begin();
         auto it_y = y.begin();
@@ -45,6 +44,16 @@ public:
             points[item.first] = item.second;
         }
         calculateRatios();
+    }
+
+    double getLowerBoundArgument()
+    {
+        return points.begin()->first;
+    }
+
+    double getUpperBoundArgument()
+    {
+        return points.rbegin()->first;
     }
 
     virtual double getFunction(double x) = 0;

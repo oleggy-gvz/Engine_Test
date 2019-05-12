@@ -28,6 +28,7 @@ public:
         if (engine != nullptr) // if engine is placed environment
         {
             setTemperatureEnvironmentEngine(engine, *this);
+            setTemperatureEngine(engine, *this);
         }
     }
 

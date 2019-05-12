@@ -14,4 +14,5 @@ HEADERS += \
     Engine/InternalCombustionEngine.h \
     Environment/Environment.h \
     TestStand/Test.h \
-    TestStand/BasicTest.h
+    TestStand/TestStand.h \
+    TestStand/OverheatingTest.h

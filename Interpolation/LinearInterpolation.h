@@ -56,15 +56,17 @@ public:
         }
         else
         {   
-            auto it_first = points.begin();
-            if (x < it_first->first)
+            /*auto it_first = points.begin();
+            if (x < it_first->first)*/
+            if (x < points.begin()->first)
             {
-                throw Exception(Exception::LESS_FIRST_X);
+                throw Exception(Exception::LESS_LOWER_BOUND);
             }
-            auto it_last = points.rbegin();
-            if (x > it_last->first)
+            /*auto it_last = points.rbegin();
+            if (x > it_last->first)*/
+            if (x > points.rbegin()->first)
             {
-                throw Exception(Exception::MORE_LAST_X);
+                throw Exception(Exception::MORE_UPPER_BOUND);
             }
             auto it = points.find(x);
             if (it != points.end()) // if the point is in table

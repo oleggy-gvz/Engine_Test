@@ -7,12 +7,12 @@ class InternalCombustionEngine : public Engine
 {
     double get_V_h() // heating rate
     {
-        return get_M() * H_m + V_current * V_current * H_v;
+        return get_M() * H_m + V_curr * V_curr * H_v;
     }
 
     double get_V_c() // cooling rate
     {
-        return C * (T_enver - T_engine);
+        return C * (T_enver - T_curr);
     }
 
     double get_a() // acceleration
@@ -40,17 +40,23 @@ public:
 
     void turnOff()
     {
-        setRotationSpeed(0);
         enable = false;
+        V_curr = 0;
+        V_target = 0;
+        setTemperature(T_enver); // engine off, its temperature is equal envirolment temperature
     }
 
     void stepTime(double sec)
     {
-        if (V_current < V_target)
+        if (V_curr < V_target)
         {
-            V_current += get_a() * sec;
+            V_curr += get_a() * sec;
         }
-        T_engine += sec * get_V_h() + sec * get_V_c();
+        else
+        {
+            V_curr = V_target;
+        }
+        T_curr += sec * get_V_h() + sec * get_V_c();
     }
 
 };
