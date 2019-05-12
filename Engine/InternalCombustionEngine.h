@@ -7,7 +7,7 @@ class InternalCombustionEngine : public Engine
 {
     double get_V_h() // heating rate
     {
-        return get_M() * H_m + V * V * H_v;
+        return get_M() * H_m + V_current * V_current * H_v;
     }
 
     double get_V_c() // cooling rate
@@ -44,13 +44,15 @@ public:
         enable = false;
     }
 
-    void setRotationSpeed(double _V)
+    void stepTime(double sec)
     {
-        if (enable)
+        if (V_current < V_target)
         {
-            V = _V;
+            V_current += get_a() * sec;
         }
+        T_engine += sec * get_V_h() + sec * get_V_c();
     }
+
 };
 
 #endif // INTERNAL_COMBUSTION_ENGINE_H

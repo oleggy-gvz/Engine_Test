@@ -15,25 +15,28 @@ public:
     virtual void Run()
     {
         engine->turnOn();
-        engine->setRotationSpeed(10);
+        engine->setRotationSpeed(50);
 
-        unsigned int time_test = 240;
+        unsigned int time_test = 40;
+        double t_step = 0.1;
         double eps = 0.000001;
+        double temp_before, temp_now = engine->getTemperature();
 
-        double temp_cur, time_cur;
-        double temp_last = engine->getTemperature();
-        for (time_cur = 0; time_cur < time_test; time_cur++)
+        for (double t = 0; t < time_test; t += t_step)
         {
-            engine->timeStep(1);
-            temp_cur = engine->getTemperature();
-            if (temp_cur - temp_last < eps) break;
-            temp_last = temp_cur;
+            cout << "temp (C) = " << temp_now;
+            cout << ",\tV (rad/sec) = " << engine->getRotationSpeed() << endl;
+
+            engine->stepTime(t_step);
+
+            temp_now = engine->getTemperature();
+            /*if (temp_before - temp_now < eps) break;
+            temp_before = temp_now;*/
         }
 
         engine->turnOff();
 
-        cout << "time (sec) = " << time_cur << endl;
-        cout << "temperature (C) = " << temp_cur << endl;
+        cout << "temperature (C) = " << temp_now << endl;
     }
 };
 

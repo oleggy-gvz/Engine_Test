@@ -40,10 +40,7 @@ public:
     {
         engine = shared_ptr<Engine>(_engine);
         setTemperatureEnvironmentEngine(engine, *this);
-        if (!engine->isEnable()) // if engine was off, its temperature is equal envirolment temperature
-        {
-            setTemperatureEngine(engine, *this);
-        }
+        setTemperatureEngine(engine, *this);
     }
 };
 
