@@ -4,7 +4,19 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+    Interpolation/LinearInterpolation.cpp \
+    Interpolation/Interpolation.cpp \
+    Engine/Engine.cpp \
+    Exception/Exception.cpp \
+    Engine/InternalCombustionEngine.cpp \
+    Environment/Environment.cpp \
+    Test/Test.cpp \
+    TestStand/TestStand.cpp \
+    Test/OverheatingTest.cpp \
+    TestStand/SearchTests.cpp \
+    EngineAssembly/EngineAssembly.cpp \
+    EngineAssembly/FuelEngines.cpp \
+	main.cpp
 
 HEADERS += \
     Interpolation/LinearInterpolation.h \

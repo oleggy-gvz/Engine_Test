@@ -20,34 +20,16 @@ class Test
 {
 protected:
     shared_ptr<Engine> engine;
-
     double Time_test;
     double Time_curr;
     double Time_step;
 
 public:
-    Test() : Time_test(0), Time_curr(0), Time_step(TimeStep::MILLISECOND_x_100)
-    {}
-
-    void setEngine(shared_ptr<Engine> _engine)
-    {
-        engine = _engine;
-    }
-
-    void setTestingTime(double _T_test)
-    {
-        Time_test = _T_test;
-    }
-
-    void setTimeStep(double _T_step)
-    {
-        Time_step = _T_step;
-    }
-
-    double getCurrentTime()
-    {
-        return Time_curr;
-    }
+    Test();
+    void setEngine(shared_ptr<Engine> _engine);
+    void setTestingTime(double _T_test);
+    void setTimeStep(double _T_step);
+    double getCurrentTime();
 
     virtual void Run() = 0;
     virtual void PrintResult() = 0;
