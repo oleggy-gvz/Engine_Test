@@ -20,6 +20,8 @@ public:
         MORE_UPPER_BOUND,
         WRONG_SIZE,
         NO_ENGINE,
+        UNKNOWN_ENGINE,
+        UNKNOWN_TEST,
     };
 
     Exception(std::string error);

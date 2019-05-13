@@ -27,6 +27,14 @@ Exception::Exception(ExceptionType error)
     case NO_ENGINE:
         m_error = "no engine is installed in the test bench";
         break;
+
+    case UNKNOWN_ENGINE:
+        m_error = "unknown engine type selected";
+        break;
+
+    case UNKNOWN_TEST:
+        m_error = "unknown test type selected";
+        break;
     }
 }
 
