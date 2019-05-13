@@ -31,6 +31,7 @@ public:
         LESS_LOWER_BOUND,
         MORE_UPPER_BOUND,
         WRONG_SIZE,
+        NO_ENGINE,
     };
 
     Exception(ExceptionType error)
@@ -55,6 +56,11 @@ public:
         // case ExceptionType::WRONG_SIZE:
         case WRONG_SIZE:
             m_error = "x and y arrays of coordinate do not match";
+            break;
+
+        // case ExceptionType::WRONG_SIZE:
+        case NO_ENGINE:
+            m_error = "no engine is installed in the test bench";
             break;
         }
     }

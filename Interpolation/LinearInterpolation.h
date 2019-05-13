@@ -1,8 +1,6 @@
 #ifndef LINEAR_INTERPOLATION_H
 #define LINEAR_INTERPOLATION_H
 
-#include <iostream>
-#include <memory>
 #include "Interpolation\Interpolation.h"
 
 using namespace std;

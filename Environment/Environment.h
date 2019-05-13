@@ -14,7 +14,7 @@ public:
     Environment(double _T_enver) : T_enver(_T_enver)
     {}
 
-    Environment(double _T_enver, Engine *_engine) : T_enver(_T_enver)
+    Environment(double _T_enver, shared_ptr<Engine> _engine) : T_enver(_T_enver)
     {
         setEngine(_engine);
     }
@@ -34,15 +34,16 @@ public:
         return T_enver;
     }
 
-    void setEngine(Engine *_engine)
+    void setEngine(shared_ptr<Engine> _engine)
     {
-        engine = shared_ptr<Engine>(_engine);
+        engine = _engine;
         setTemperatureEnvironmentEngine(engine, *this);
         setTemperatureEngine(engine, *this);
     }
 };
 
 // friend methods for engine, becouse environment could only change temperature engine
+// user cannot change temperature engine
 void setTemperatureEnvironmentEngine(shared_ptr<Engine> engine, const Environment &envir)
 {
     engine->setTemperatureEnvironment(envir.getTemperature());
