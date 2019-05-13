@@ -10,29 +10,32 @@ using namespace std;
 class LinearInterpolation : public Interpolation
 {
 private:
-    // f(x) = a[n] * x + b[n], n - count point
-    vector<double> a; // angular coefficient
-    vector<double> b; // additional constant
-    map<double, unsigned int> segments;
+    // f(x) = a[i] * x + b[i], i = 0,1..n-2, n - count points
+    vector<double> a; // a[i], angular coefficient
+    vector<double> b; // b[i], additional constant
+    // segments[i], i = 0,1..n-2, for easy index (i) lookup
+    map<double, unsigned int> segments; // upper bound (x2) of segment x1..x2 <-> index of segment
 
     void calculateRatios()
     {
         if (points.size() > 1)
         {
-            a.clear(); // clean old ratios
-            b.clear();
-            segments.clear();
+            // clean old ratios
+            a.clear(); // clean a[i]
+            b.clear(); // clean b[i]
+            segments.clear(); // clean segments[i]
 
             auto it_p1 = points.begin();
             auto it_p2 = it_p1;
             ++it_p2;
+            double a_cur, b_cur;
             for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++)
             {
-                double a_cur = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
-                double b_cur = it_p1->second - a_cur * it_p1->first;
-                a.push_back(a_cur);
-                b.push_back(b_cur);
-                segments[it_p2->first] = i;
+                a_cur = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
+                b_cur = it_p1->second - a_cur * it_p1->first;
+                a.push_back(a_cur); // a[i]
+                b.push_back(b_cur); // b[i]
+                segments[it_p2->first] = i; // segment[i]
             }
         }
     }

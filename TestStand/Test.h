@@ -20,12 +20,13 @@ class Test
 {
 protected:
     shared_ptr<Engine> engine;
-    double Time_step;
+
     double Time_test;
     double Time_curr;
+    double Time_step;
 
 public:
-    Test() : Time_curr(0), Time_test(0), Time_step(TimeStep::_100_MILLISECOND)
+    Test() : Time_test(0), Time_curr(0), Time_step(TimeStep::_100_MILLISECOND)
     {}
 
     void setEngine(Engine *_engine)

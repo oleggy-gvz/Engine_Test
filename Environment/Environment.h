@@ -11,15 +11,12 @@ private:
     shared_ptr<Engine> engine;
 
 public:
-    Environment(double t_enver, Engine *_engine)
-    {
-        setTemperature(t_enver);
-        setEngine(_engine);
-    }
+    Environment(double _T_enver) : T_enver(_T_enver)
+    {}
 
-    Environment(double t_enver)
+    Environment(double _T_enver, Engine *_engine) : T_enver(_T_enver)
     {
-        setTemperature(t_enver);
+        setEngine(_engine);
     }
 
     void setTemperature(double t_enver)

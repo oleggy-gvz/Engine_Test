@@ -59,7 +59,7 @@ public:
         setEngine(_engine);
     }
 
-    OverheatingTest(Engine *_engine, double _Time_test, double _Time_step, double _Eps_T, double _V_step) :
+    OverheatingTest(Engine *_engine, double _Time_test, double _Time_step, double _Eps_T, double _V_step = 1) :
                 Eps_T(_Eps_T), T_curr(0), V_curr(0), V_step(_V_step), Overheat(false), RunTest(false)
     {
         setEngine(_engine);

@@ -37,7 +37,7 @@ protected:
     // protected - temperature can be changed by environment, user cannot change
     void setTemperature(double _T_curr)
     {
-        if (!enable) // if engine was off, its temperature is equal envirolment temperature
+        if (!enable) // envirolment temperature is set only if engine is off
         {
             T_curr = _T_curr;
         }
@@ -74,7 +74,7 @@ public:
 
     void setRotationSpeed(double _V)
     {
-        if (enable)
+        if (enable) // rotational speed is set only if engine is on
         {
             V_target = _V;
         }

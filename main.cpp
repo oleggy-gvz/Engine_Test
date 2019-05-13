@@ -15,11 +15,17 @@ int main()
     Environment envir(20);
     envir.setEngine(engine); // put the engine on
 
-    double temp = 20;
-    envir.setTemperature(temp); // set temperature
+    // set temperature environment
+    double temp;
+    cout << "environment temperature (C) = ";
+    cin >> temp;
+    envir.setTemperature(temp);
+    cout << endl;
+    cout << "environment temperature is " << envir.getTemperature() << " (C)" << endl;
 
     // testing
-    Test *test = new OverheatingTest(engine, 60*5, TimeStep::_100_MILLISECOND, AccuracyTemp::DECIMAL_PLACES_7, 1);
+    cout << "start testing:" << endl;
+    Test *test = new OverheatingTest(engine, 60*5, TimeStep::_10_MILLISECOND, AccuracyTemp::DECIMAL_PLACES_7);
     test->Run();
     test->PrintResult();
 
