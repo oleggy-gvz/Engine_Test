@@ -15,12 +15,13 @@ int main()
     Environment envir(20);
     envir.setEngine(engine); // put the engine on
 
-    double temp = 30;
+    double temp = 20;
     envir.setTemperature(temp); // set temperature
 
     // testing
-    Test *test = new OverheatingTest(engine, 60*5, TimeStep::_10_MILLISECOND, AccuracyTemp::DECIMAL_PLACES_7, 1);
+    Test *test = new OverheatingTest(engine, 60*5, TimeStep::_100_MILLISECOND, AccuracyTemp::DECIMAL_PLACES_7, 1);
     test->Run();
+    test->PrintResult();
 
     return 0;
 }

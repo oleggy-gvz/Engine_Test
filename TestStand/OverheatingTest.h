@@ -19,22 +19,52 @@ public:
 class OverheatingTest : public Test
 {
 private:
-    double Eps_T;
-    double V_step;
+    double Eps_T, T_curr;
+    double V_curr, V_step;
+    bool Overheat;
+    bool RunTest;
+
+    bool checkOverheatStatus()
+    {
+        Overheat = engine->getTemperature() > engine->getOverheatingTemperature();
+        return Overheat;
+    }
+
+    bool getOverheatStatus()
+    {
+        return Overheat;
+    }
+
+    bool checkTemperatureStability()
+    {
+        double T_before = T_curr;
+        T_curr = engine->getTemperature();
+        return T_curr - T_before < Eps_T;
+    }
+
+    void readTemperatureEngine()
+    {
+        T_curr = engine->getTemperature();
+    }
+
+    void stepTime()
+    {
+        engine->stepTime(Time_step);
+    }
 
 public:
-    OverheatingTest(Engine *_engine) : Eps_T(AccuracyTemp::DECIMAL_PLACES_3), V_step(1)
+    OverheatingTest(Engine *_engine) :
+        Eps_T(AccuracyTemp::DECIMAL_PLACES_3), T_curr(0), V_curr(0), V_step(1), Overheat(false), RunTest(false)
     {
         setEngine(_engine);
     }
 
-    OverheatingTest(Engine *_engine, double _T_test, double _T_step, double _Eps_T, double _V_step)
+    OverheatingTest(Engine *_engine, double _Time_test, double _Time_step, double _Eps_T, double _V_step) :
+                Eps_T(_Eps_T), T_curr(0), V_curr(0), V_step(_V_step), Overheat(false), RunTest(false)
     {
         setEngine(_engine);
-        setTestingTime(_T_test);
-        setTimeStep(_T_step);
-        setTemperatureAccuracy(_Eps_T);
-        setRotationSpeedStep(_V_step);
+        setTestingTime(_Time_test);
+        setTimeStep(_Time_step);
     }
 
     void setTemperatureAccuracy(double _Eps_T)
@@ -47,41 +77,47 @@ public:
         V_step = _V_step;
     }
 
-    virtual void Run()
+    void Run()
     {
-        double V, T_before, T_now;
-        bool over = false;
+        RunTest = false;
 
-        for (V = 0; V < engine->getMaxRotationSpeed(); V += V_step)
+        for (V_curr = 0; V_curr < engine->getMaxRotationSpeed(); V_curr += V_step)
         {
             engine->turnOn();
-            //cout << "V current = " << V << endl;
-            engine->setRotationSpeed(V);
-            T_now = engine->getTemperature();
+            // cout << "V current = " << V_curr << endl;
+            engine->setRotationSpeed(V_curr);
+
             for (Time_curr = 0; Time_curr < Time_test; Time_curr += Time_step)
             {
-                engine->stepTime(Time_step);
-                if (T_now > engine->getOverheatingTemperature())
-                {
-                    over = true;
-                    break;
-                }
-                T_before = T_now;
-                T_now = engine->getTemperature();
-                if (T_now - T_before < Eps_T) continue;
+                readTemperatureEngine();
+                stepTime();
+                if (checkOverheatStatus()) break;
+                if (checkTemperatureStability()) break;
             }
             engine->turnOff();
-            if (over) break;
+            if (getOverheatStatus()) break;
         }
+        RunTest = true;
+    }
 
-        if (over)
+    void PrintResult()
+    {
+        if (!RunTest)
         {
-            cout << "rotation speed (rad/sec) = " << V << endl;
-            cout << "overheating time (sec) = " << Time_curr << endl;
+            cout << "there was no test" << endl;
         }
         else
         {
-            cout << "no overheating" << endl;
+            if (Overheat)
+            {
+                cout << "rotation speed (rad/sec) = " << V_curr << endl;
+                cout << "overheating time (sec) = " << Time_curr << endl;
+            }
+            else
+            {
+                cout << "no overheating" << endl;
+            }
+
         }
     }
 };

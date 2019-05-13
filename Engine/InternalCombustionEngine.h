@@ -41,9 +41,9 @@ public:
     void turnOff()
     {
         enable = false;
-        V_curr = 0;
+        V_curr = 0; // allow the engine rotation speed to be instantly drops momentum
         V_target = 0;
-        setTemperature(T_enver); // engine off, its temperature is equal envirolment temperature
+        setTemperature(T_enver); // allow the engine temperature to be instantly equal envirolment temperature
     }
 
     void stepTime(double sec)
@@ -54,11 +54,10 @@ public:
         }
         else
         {
-            V_curr = V_target;
+            V_curr = V_target; // allow the engine rotation speed to be instantly drops momentum
         }
         T_curr += sec * get_V_h() + sec * get_V_c();
     }
-
 };
 
 #endif // INTERNAL_COMBUSTION_ENGINE_H

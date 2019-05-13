@@ -7,13 +7,13 @@
 class TimeStep
 {
 public:
-    static constexpr double _SECOND = 1;
+    static constexpr double _1_SECOND = 1;
     static constexpr double _100_MILLISECOND = 0.1;
     static constexpr double _10_MILLISECOND = 0.01;
-    static constexpr double _MILLISECOND = 0.001;
+    static constexpr double _1_MILLISECOND = 0.001;
     static constexpr double _100_MICROSECOND = 0.0001;
     static constexpr double _10_MICROSECOND = 0.00001;
-    static constexpr double _MICROSECOND = 0.000001;
+    static constexpr double _1_MICROSECOND = 0.000001;
 };
 
 class Test
@@ -25,7 +25,7 @@ protected:
     double Time_curr;
 
 public:
-    Test() : Time_curr(0), Time_test(0), Time_step(TimeStep::_SECOND)
+    Test() : Time_curr(0), Time_test(0), Time_step(TimeStep::_100_MILLISECOND)
     {}
 
     void setEngine(Engine *_engine)
@@ -49,6 +49,7 @@ public:
     }
 
     virtual void Run() = 0;
+    virtual void PrintResult() = 0;
 };
 
 #endif // TEST_H
