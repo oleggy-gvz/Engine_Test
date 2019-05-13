@@ -104,7 +104,7 @@ public:
     {
         if (!RunTest)
         {
-            cout << "there was no test" << endl;
+            cout << "there was no testing" << endl;
         }
         else
         {
@@ -117,7 +117,6 @@ public:
             {
                 cout << "no overheating" << endl;
             }
-
         }
     }
 };

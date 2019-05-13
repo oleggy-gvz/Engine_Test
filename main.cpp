@@ -21,10 +21,7 @@ int main()
     cin >> temp;
     envir.setTemperature(temp);
     cout << endl;
-    cout << "environment temperature is " << envir.getTemperature() << " (C)" << endl;
 
-    // testing
-    cout << "start testing:" << endl;
     Test *test = new OverheatingTest(engine, 60*5, TimeStep::_10_MILLISECOND, AccuracyTemp::DECIMAL_PLACES_7);
     test->Run();
     test->PrintResult();
