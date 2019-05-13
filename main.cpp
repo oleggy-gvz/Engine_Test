@@ -25,6 +25,8 @@ int main()
 
     test_stend->GetTest("Overheating Speed Test");
 
+    system("pause");
+
     return 0;
 }
 
