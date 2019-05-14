@@ -27,7 +27,7 @@ protected:
 
     // protected - temperature can be changed by environment, user cannot change
     void setTemperature(double _T_curr);
-    void setTemperatureEnvironment(double _T);
+    void setTemperatureEnvironment(double _T_enver);
 
     double get_M(); // get current torque
     virtual double get_V_h() = 0; // get engine heating rate

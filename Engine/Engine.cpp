@@ -18,9 +18,9 @@ void Engine::setTemperature(double _T_curr)
 }
 
 // protected - temperature can be changed by environment, user cannot change
-void Engine::setTemperatureEnvironment(double _T)
+void Engine::setTemperatureEnvironment(double _T_enver)
 {
-    T_enver = _T;
+    T_enver = _T_enver;
 }
 
 bool Engine::isEnable()
