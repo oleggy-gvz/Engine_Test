@@ -1,4 +1,4 @@
-#include "TestStand\SearchTests.h"
+#include "SearchTests.h"
 
 shared_ptr<Test> SearchTests::CreateTest(const string &type)
 {

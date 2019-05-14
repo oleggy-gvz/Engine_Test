@@ -1,4 +1,4 @@
-#include "Exception\Exception.h"
+#include "Exception.h"
 
 Exception::Exception(std::string error)
     : m_error(error)

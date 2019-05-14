@@ -2,7 +2,7 @@
 #define OVERHEATING_TEST_H
 
 #include <iostream>
-#include "Test\Test.h"
+#include "Test.h"
 
 class AccuracyTemp
 {

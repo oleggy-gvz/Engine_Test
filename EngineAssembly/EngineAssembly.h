@@ -2,7 +2,6 @@
 #define ENGINE_ASSEMBLY_H
 
 #include "Engine\Engine.h"
-#include <memory>
 
 class EngineAssembly
 {

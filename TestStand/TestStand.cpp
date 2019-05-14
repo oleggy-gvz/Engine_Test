@@ -1,4 +1,4 @@
-#include "TestStand\TestStand.h"
+#include "TestStand.h"
 
 shared_ptr<Test> TestStand::GetTest(const string &type)
 {

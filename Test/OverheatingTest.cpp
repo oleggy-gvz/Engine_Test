@@ -1,4 +1,4 @@
-#include "Test\OverheatingTest.h"
+#include "OverheatingTest.h"
 
 OverheatingTest::OverheatingTest(shared_ptr<Engine> _engine) :
     T_curr(0), Eps_T(AccuracyTemp::DECIMAL_PLACES_3), V_curr(0), V_step(1), Overheat(false), RunTest(false)

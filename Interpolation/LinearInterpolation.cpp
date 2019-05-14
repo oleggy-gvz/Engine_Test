@@ -1,4 +1,4 @@
-#include "Interpolation\LinearInterpolation.h"
+#include "LinearInterpolation.h"
 
 LinearInterpolation::LinearInterpolation(std::initializer_list<double> x, std::initializer_list<double> y)
 {

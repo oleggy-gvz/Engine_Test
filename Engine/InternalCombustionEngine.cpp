@@ -1,4 +1,4 @@
-#include "Engine\InternalCombustionEngine.h"
+#include "InternalCombustionEngine.h"
 
 InternalCombustionEngine::InternalCombustionEngine(double _I, Interpolation *_M_V, double _T_over, double _H_m, double _H_v, double _C)
 {

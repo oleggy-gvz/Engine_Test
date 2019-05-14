@@ -1,7 +1,7 @@
 #ifndef FUEL_ENGINES_H
 #define FUEL_ENGINES_H
 
-#include "EngineAssembly\EngineAssembly.h"
+#include "EngineAssembly.h"
 #include "Interpolation\LinearInterpolation.h"
 #include "Engine\InternalCombustionEngine.h"
 

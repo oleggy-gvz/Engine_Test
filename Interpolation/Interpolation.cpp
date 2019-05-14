@@ -1,4 +1,4 @@
-#include "Interpolation\Interpolation.h"
+#include "Interpolation.h"
 
 void Interpolation::addPoint(double x, double y)
 {
