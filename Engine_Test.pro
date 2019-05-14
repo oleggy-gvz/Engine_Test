@@ -16,7 +16,8 @@ SOURCES += \
     TestStand/SearchTests.cpp \
     EngineAssembly/EngineAssembly.cpp \
     EngineAssembly/FuelEngines.cpp \
-	main.cpp
+	main.cpp \
+    Interpolation/CubicSplineInterpolation.cpp
 
 HEADERS += \
     Interpolation/LinearInterpolation.h \
@@ -30,4 +31,5 @@ HEADERS += \
     Test/OverheatingTest.h \
     TestStand/SearchTests.h \
     EngineAssembly/EngineAssembly.h \
-    EngineAssembly/FuelEngines.h
+    EngineAssembly/FuelEngines.h \
+    Interpolation/CubicSplineInterpolation.h

@@ -19,7 +19,7 @@ int main()
     envir.setTemperature(temp); // engine temperature will also change
     cout << endl;
 
-    cout << "environment temperature is " << envir.getTemperature() << "C" << endl;
+    cout << "environment temperature is " << envir.getTemperature() << " C" << endl;
     shared_ptr<TestStand> test_stend(new SearchTests());
     test_stend->SetEngine(engine);
 
