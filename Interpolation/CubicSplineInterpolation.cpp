@@ -15,27 +15,49 @@ void CubicSplineInterpolation::calculateRatios()
     if (points.size() > 1)
     {
         // clean old ratios
+        segments.clear(); // clean segments[i]
         a.clear(); // clean a[i]
         b.clear(); // clean b[i]
-        c.clear(); // clean b[i]
-        d.clear(); // clean b[i]
-        segments.clear(); // clean segments[i]
+        c.clear(); // clean c[i]
+        d.clear(); // clean d[i]
+
+        h.clear(); // clean h[i]
+        delta.clear(); // clean delta[i]
+        A.clear();
+        B.clear();
+        C.clear();
 
         auto it_p1 = points.begin();
         auto it_p2 = it_p1;
         ++it_p2;
-        double a_cur, b_cur, c_cur, d_cur;
-        for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++)
-        {
-            a_cur = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
-            b_cur = it_p1->second - a_cur * it_p1->first;
+        a.push_back(it_p1->second); // a[0]
 
-            a.push_back(a_cur); // a[i]
-            b.push_back(b_cur); // b[i]
-            c.push_back(c_cur); // c[i]
-            d.push_back(d_cur); // d[i]
+        double a_i, b_i, c_i, d_i, h_i, delta_i, A_i, B_i, C_i;
+        for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
+        {
             segments[it_p2->first] = i; // segment[i]
+
+            h_i = it_p2->first - it_p1->first; // h[i] = x[i+1] - x[i]
+            h.push_back(h_i);
+            delta_i = (it_p2->second - it_p1->second) / h_i;
+            delta.push_back(delta_i);
         }
+
+        C.push_back(2 * (h[0] + h[1])); // C[i], i = 1..n => 0..n-1
+        for (unsigned int i = 1; i < h.size(); i++) // i = 2..n => 1..n-1 => 0..n-2
+        {
+            A_i = h[i];
+            A.push_back(A_i); // A[i], i = 2..n => 0..n-2
+            B_i = h[i];
+            B.push_back(B_i); // B[i], i = 1..n-1 => 0..n-2
+            C_i = 2 * (h[i] + h[i+1]);
+            C.push_back(C_i); // C[i], i = 1..n => 0..n-1
+        }
+
+        a.push_back(a_i); // a[i]
+        b.push_back(b_i); // b[i]
+        c.push_back(c_i); // c[i]
+        d.push_back(d_i); // d[i]
     }
 }
 
@@ -72,6 +94,10 @@ double CubicSplineInterpolation::getFunction(double x)
 // РАЗОБРАТЬ !!!!!!!!!!
 
 /*
+// источник:
+// http://www.machinelearning.ru/wiki/index.php?title=%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BF%D0%BE%D0%BB%D1%8F%D1%86%D0%B8%D1%8F_%D0%BA%D1%83%D0%B1%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%BC%D0%B8_%D1%81%D0%BF%D0%BB%D0%B0%D0%B9%D0%BD%D0%B0%D0%BC%D0%B8
+// https://ru.wikipedia.org/wiki/%D0%9A%D1%83%D0%B1%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D1%81%D0%BF%D0%BB%D0%B0%D0%B9%D0%BD
+
 class knot{
 public:
     double x,f;

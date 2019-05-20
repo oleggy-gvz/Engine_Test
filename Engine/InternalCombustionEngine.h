@@ -10,7 +10,7 @@ class InternalCombustionEngine : public Engine
     double get_a(); // acceleration
 
 public:
-    InternalCombustionEngine(double _I, Interpolation *_M_V, double _T_over, double _H_m, double _H_v, double _C);
+    InternalCombustionEngine(double _I, shared_ptr<Interpolation> _M_V, double _T_over, double _H_m, double _H_v, double _C);
     void turnOn();
     void turnOff();
     void stepTime(double sec);
