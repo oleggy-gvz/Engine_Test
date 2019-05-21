@@ -1,7 +1,7 @@
 #ifndef CUBIC_SPLINE_INTERPOLATION_H
 #define CUBIC_SPLINE_INTERPOLATION_H
 
-#include "Interpolation\Interpolation.h"
+#include "..\Interpolation\Interpolation.h"
 
 class CubicSplineInterpolation : public Interpolation
 {

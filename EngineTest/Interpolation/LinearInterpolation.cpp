@@ -30,7 +30,6 @@ void LinearInterpolation::calculateRatios()
             b_cur = it_p1->second - a_cur * it_p1->first;
             a.push_back(a_cur); // a[i]
             b.push_back(b_cur); // b[i]
-
         }
     }
 }

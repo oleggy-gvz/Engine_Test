@@ -36,21 +36,20 @@ void CubicSplineInterpolation::calculateRatios()
         for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
         {
             segments[it_p2->first] = i; // segment[i]
-
-            h_i = it_p2->first - it_p1->first; // h[i] = x[i+1] - x[i]
+            h_i = it_p2->first - it_p1->first; // h[i] = x[i+1] - x[i], i = 0..n-1
             h.push_back(h_i);
             delta_i = (it_p2->second - it_p1->second) / h_i;
             delta.push_back(delta_i);
         }
 
         C.push_back(2 * (h[0] + h[1])); // C[i], i = 1..n => 0..n-1
-        for (unsigned int i = 1; i < h.size(); i++) // i = 2..n => 1..n-1 => 0..n-2
+        for (unsigned int i = 0; i < h.size(); i++) // i = 2..n => 1..n-1 => 0..n-2
         {
             A_i = h[i];
             A.push_back(A_i); // A[i], i = 2..n => 0..n-2
-            B_i = h[i];
+            B_i = h[i+1];
             B.push_back(B_i); // B[i], i = 1..n-1 => 0..n-2
-            C_i = 2 * (h[i] + h[i+1]);
+            C_i = 2 * (h[i+1] + h[i+2]);
             C.push_back(C_i); // C[i], i = 1..n => 0..n-1
         }
 
