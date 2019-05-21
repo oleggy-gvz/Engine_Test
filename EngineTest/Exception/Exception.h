@@ -15,7 +15,8 @@ private:
 public:
     enum ExceptionType
     {
-        NO_POINTS,
+        NO_POINTS_LINEAR,
+        NO_POINTS_CUBICSPLINE,
         LESS_LOWER_BOUND,
         MORE_UPPER_BOUND,
         WRONG_SIZE,

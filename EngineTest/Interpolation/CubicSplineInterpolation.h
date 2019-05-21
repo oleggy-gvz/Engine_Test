@@ -15,9 +15,6 @@ private:
     // segments[i], i = 0,1..n-2, for easy index (i) lookup
     map<double, unsigned int> segments; // upper bound (x2) of segment x1..x2 <-> index of segment
 
-    vector<double> h, delta; // h[i], delta[i]
-    vector<double> A, B, C; // A[i], B[i], C[i]
-
     void calculateRatios();
 
 public:

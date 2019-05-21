@@ -8,8 +8,12 @@ Exception::Exception(ExceptionType error)
 {
     switch(error)
     {
-    case NO_POINTS:
-        m_error = "for interpolation, the number of points must be more than one";
+    case NO_POINTS_LINEAR:
+        m_error = "for linear interpolation, the number of points must be two and more";
+        break;
+
+    case NO_POINTS_CUBICSPLINE:
+        m_error = "for cubic spline interpolation, the number of points must be three and more";
         break;
 
     case LESS_LOWER_BOUND:

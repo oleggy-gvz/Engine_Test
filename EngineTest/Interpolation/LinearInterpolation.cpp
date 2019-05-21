@@ -20,16 +20,14 @@ void LinearInterpolation::calculateRatios()
         segments.clear(); // clean segments[i]
 
         auto it_p1 = points.begin();
-        auto it_p2 = it_p1;
-        ++it_p2;
-        double a_cur, b_cur;
+        auto it_p2 = ++(points.begin());
         for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
         {
             segments[it_p2->first] = i; // segment[i]
-            a_cur = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
-            b_cur = it_p1->second - a_cur * it_p1->first;
-            a.push_back(a_cur); // a[i]
-            b.push_back(b_cur); // b[i]
+            double a_i = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
+            double b_i = it_p1->second - a_i * it_p1->first;
+            a.push_back(a_i); // a[i]
+            b.push_back(b_i); // b[i]
         }
     }
 }
@@ -38,7 +36,7 @@ double LinearInterpolation::getFunction(double x)
 {
     if (points.size() < 2)
     {
-        throw Exception(Exception::NO_POINTS);
+        throw Exception(Exception::NO_POINTS_LINEAR);
     }
     else
     {

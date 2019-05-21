@@ -12,59 +12,56 @@ CubicSplineInterpolation::CubicSplineInterpolation(initializer_list<pair<double,
 
 void CubicSplineInterpolation::calculateRatios()
 {
-    if (points.size() > 1)
+    if (points.size() > 2)
     {
         // clean old ratios
         segments.clear(); // clean segments[i]
+
+        //vector<double> delta; // delta[i]
+        vector<double> h; // h[i]
+        auto it_p1 = points.begin();
+        auto it_p2 = ++(points.begin());
+        for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
+        {
+            segments[it_p2->first] = i; // segment[i]
+            double h_i = it_p2->first - it_p1->first; // h[i] = x[i+1] - x[i], i = 0..n-1
+            h.push_back(h_i);
+            //double delta_i = (it_p2->second - it_p1->second) / h_i;
+            //delta.push_back(delta_i);
+        }
+
+        vector<double> A, B, C, F; // A[i], B[i], C[i], F[i]
+        it_p1 = points.begin(); // x[i-1]
+        it_p2 = ++(points.begin()); // x[i]
+        auto it_p3 = it_p2; ++it_p3; // x[i+1]
+        for (unsigned int i = 0; it_p3 != points.end(); ++it_p1, ++it_p2, ++it_p3, i++) // i = 0..n-2
+        {
+            A.push_back(h[i]); // A[i]
+            B.push_back(h[i+1]); // B[i]
+            C.push_back(2 * (h[i] + h[i+1])); // C[i]
+            F.push_back(A[i] * it_p1->first + C[i] *  it_p2->first + B[i] * it_p3->first);
+        }
+        vector<double> alpha, beta; // alpha[i], beta[i]
+        alpha.push_back(-B[0] / C[0]);
+        beta.push_back(F[0] / C[0]);
+        for (unsigned int i = 1; i < h.size() - 1; i++) // i = 1..n-2
+        {
+            double denom = A[i] * alpha[i-1] + C[i];
+            alpha.push_back(-B[i] / denom);
+            beta.push_back((F[i] - A[i] * beta[i-1]) / denom);
+        }
         a.clear(); // clean a[i]
         b.clear(); // clean b[i]
         c.clear(); // clean c[i]
         d.clear(); // clean d[i]
-
-        h.clear(); // clean h[i]
-        delta.clear(); // clean delta[i]
-        A.clear();
-        B.clear();
-        C.clear();
-
-        auto it_p1 = points.begin();
-        auto it_p2 = it_p1;
-        ++it_p2;
-        a.push_back(it_p1->second); // a[0]
-
-        double a_i, b_i, c_i, d_i, h_i, delta_i, A_i, B_i, C_i;
-        for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
-        {
-            segments[it_p2->first] = i; // segment[i]
-            h_i = it_p2->first - it_p1->first; // h[i] = x[i+1] - x[i], i = 0..n-1
-            h.push_back(h_i);
-            delta_i = (it_p2->second - it_p1->second) / h_i;
-            delta.push_back(delta_i);
-        }
-
-        C.push_back(2 * (h[0] + h[1])); // C[i], i = 1..n => 0..n-1
-        for (unsigned int i = 0; i < h.size(); i++) // i = 2..n => 1..n-1 => 0..n-2
-        {
-            A_i = h[i];
-            A.push_back(A_i); // A[i], i = 2..n => 0..n-2
-            B_i = h[i+1];
-            B.push_back(B_i); // B[i], i = 1..n-1 => 0..n-2
-            C_i = 2 * (h[i+1] + h[i+2]);
-            C.push_back(C_i); // C[i], i = 1..n => 0..n-1
-        }
-
-        a.push_back(a_i); // a[i]
-        b.push_back(b_i); // b[i]
-        c.push_back(c_i); // c[i]
-        d.push_back(d_i); // d[i]
     }
 }
 
 double CubicSplineInterpolation::getFunction(double x)
 {
-    if (points.size() < 2)
+    if (points.size() < 3)
     {
-        throw Exception(Exception::NO_POINTS);
+        throw Exception(Exception::NO_POINTS_CUBICSPLINE);
     }
     else
     {
