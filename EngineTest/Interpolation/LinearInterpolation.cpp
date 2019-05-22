@@ -12,23 +12,24 @@ LinearInterpolation::LinearInterpolation(initializer_list<pair<double, double>> 
 
 void LinearInterpolation::calculateRatios()
 {
-    if (points.size() > 1)
+    if (points.size() < 2)
     {
-        // clean old ratios
-        a.clear(); // clean a[i]
-        b.clear(); // clean b[i]
-        segments.clear(); // clean segments[i]
+        throw Exception(Exception::NO_POINTS_LINEAR);
+    }
+    // clean old ratios
+    a.clear(); // clean a[i]
+    b.clear(); // clean b[i]
+    segments.clear(); // clean segments[i]
 
-        auto it_p1 = points.begin();
-        auto it_p2 = ++(points.begin());
-        for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
-        {
-            segments[it_p2->first] = i; // segment[i]
-            double a_i = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
-            double b_i = it_p1->second - a_i * it_p1->first;
-            a.push_back(a_i); // a[i]
-            b.push_back(b_i); // b[i]
-        }
+    auto it_p1 = points.begin();
+    auto it_p2 = ++(points.begin());
+    for (unsigned int i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
+    {
+        segments[it_p2->first] = i; // segment[i]
+        double a_i = (it_p2->second - it_p1->second) / (it_p2->first - it_p1->first);
+        double b_i = it_p1->second - a_i * it_p1->first;
+        a.push_back(a_i); // a[i]
+        b.push_back(b_i); // b[i]
     }
 }
 

@@ -13,7 +13,7 @@ private:
     vector<double> d; // d[i], coefficient d
 
     // segments[i], i = 0,1..n-2, for easy index (i) lookup
-    map<double, unsigned int> segments; // upper bound (x2) of segment x1..x2 <-> index of segment
+    map<double, pair<unsigned int, double>> segments; // segment x1..x2: key = x2, value = <index of segment, x1>
 
     void calculateRatios();
 
