@@ -3,6 +3,7 @@
 
 #include "EngineAssembly.h"
 #include "Interpolation\LinearInterpolation.h"
+#include "Interpolation\CubicSplineInterpolation.h"
 #include "Engine\InternalCombustionEngine.h"
 
 class FuelEngines : public EngineAssembly
