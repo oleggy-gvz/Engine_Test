@@ -31,6 +31,7 @@ void CubicSplineInterpolation::calculateRatios()
     for (i = 0; it_p2 != points.end(); ++it_p1, ++it_p2, i++) // i = 0..n-1
     {
         segments.emplace(it_p2->first, make_pair(i, it_p1->first)); // add: <x[i+1], <i, f(x[i])>, i = 0..n-1
+        //segments[it_p2->first] = make_pair(i, it_p1->first); // add: <x[i+1], <i, f(x[i])>, i = 0..n-1
         double h_i = it_p2->first - it_p1->first; // h[i] = x[i+1] - x[i], i = 0..n-1
         h.push_back(h_i);
         double delta_i = (it_p2->second - it_p1->second) / h_i;
@@ -76,12 +77,10 @@ void CubicSplineInterpolation::calculateRatios()
         alph.push_back(-B[i] / denom);
         beta.push_back((F[i] - A[i] * beta[i-1]) / denom);
     }
-    auto it_prev = b.begin();
-    double b_prev = (F[i] - A[i] * beta[i-1]) / (A[i] * alph[i-1] + C[i]); // b[i+1]
+    auto it_prev = b.insert(b.begin(), (F[i] - A[i] * beta[i-1]) / (A[i] * alph[i-1] + C[i])); // i = n-1
     for (int i = h.size() - 1; i >= 0; i--) // i = n-2..0
     {
-        b_prev = b_prev * alph[i] + beta[i]; // b_prev = b[i+1]
-        it_prev = b.insert(it_prev, b_prev);
+        it_prev = b.insert(it_prev, *it_prev * alph[i] + beta[i]);
     }
     for (i = 0; i < h.size(); i++)
     {
