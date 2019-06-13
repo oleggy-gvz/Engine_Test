@@ -21,8 +21,7 @@ class OverheatingTest : public Test
 private:
     double T_curr, Eps_T;
     double V_curr, V_step;
-    bool Overheat;
-    bool RunTest;
+    bool isOverheat;
 
     bool checkOverheatStatus();
     bool getOverheatStatus();

@@ -23,6 +23,11 @@ protected:
     double Time_test;
     double Time_curr;
     double Time_step;
+    bool isCompletedTest;
+
+    void setNewTest();
+    void setCompletedTest();
+    bool getCompletedTest();
 
 public:
     Test();

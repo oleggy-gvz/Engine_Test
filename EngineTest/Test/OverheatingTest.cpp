@@ -1,13 +1,13 @@
 #include "OverheatingTest.h"
 
 OverheatingTest::OverheatingTest(shared_ptr<Engine> _engine) :
-    T_curr(0), Eps_T(AccuracyTemp::DECIMAL_PLACES_3), V_curr(0), V_step(1), Overheat(false), RunTest(false)
+    T_curr(0), Eps_T(AccuracyTemp::DECIMAL_PLACES_3), V_curr(0), V_step(1), isOverheat(false)
 {
     setEngine(_engine);
 }
 
 OverheatingTest::OverheatingTest(shared_ptr<Engine> _engine, double _Time_test, double _Time_step, double _Eps_T, double _V_step) :
-    T_curr(0), Eps_T(_Eps_T), V_curr(0), V_step(_V_step), Overheat(false), RunTest(false)
+    T_curr(0), Eps_T(_Eps_T), V_curr(0), V_step(_V_step), isOverheat(false)
 {
     setEngine(_engine);
     setTestingTime(_Time_test);
@@ -16,13 +16,13 @@ OverheatingTest::OverheatingTest(shared_ptr<Engine> _engine, double _Time_test, 
 
 bool OverheatingTest::checkOverheatStatus()
 {
-    Overheat = engine->getTemperature() > engine->getOverheatingTemperature();
-    return Overheat;
+    isOverheat = engine->getTemperature() > engine->getOverheatingTemperature();
+    return isOverheat;
 }
 
 bool OverheatingTest::getOverheatStatus()
 {
-    return Overheat;
+    return isOverheat;
 }
 
 bool OverheatingTest::checkTemperatureStability()
@@ -54,7 +54,7 @@ void OverheatingTest::setRotationSpeedStep(double _V_step)
 
 void OverheatingTest::Run()
 {
-    RunTest = false;
+    setNewTest();
     for (V_curr = 0; V_curr < engine->getMaxRotationSpeed(); V_curr += V_step)
     {
         engine->turnOn();
@@ -71,18 +71,18 @@ void OverheatingTest::Run()
         engine->turnOff();
         if (getOverheatStatus()) break;
     }
-    RunTest = true;
+    setCompletedTest();
 }
 
 void OverheatingTest::PrintResult()
 {
-    if (!RunTest)
+    if (!getCompletedTest())
     {
         cout << "there was no testing" << endl;
     }
     else
     {
-        if (Overheat)
+        if (getOverheatStatus())
         {
             cout << "overheating speed, V (rad/sec) = " << V_curr << endl;
             cout << "overheating time, t (sec) = " << Time_curr << endl;

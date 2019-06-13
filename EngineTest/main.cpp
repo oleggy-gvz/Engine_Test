@@ -7,7 +7,10 @@ using namespace std;
 int main()
 {
     shared_ptr<EngineAssembly> engine_assembly(new FuelEngines());
-    shared_ptr<Engine> engine = engine_assembly->GetEngine("Basic Internal Combustion Engine");
+    shared_ptr<Engine> engine;
+
+    engine= engine_assembly->GetEngine("Basic Internal Combustion Engine");
+    //engine = engine_assembly->GetEngine("Basic Internal Combustion Engine with Cubic Spline");
 
     Environment envir(20); // default temperature of environment is 20C
     envir.setEngine(engine); // engine temperature will be equal to the temperature of environment
