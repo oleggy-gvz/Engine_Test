@@ -23,7 +23,7 @@ protected:
     double Time_test;
     double Time_curr;
     double Time_step;
-    bool isCompletedTest;
+    bool isTested;
 
     void setNewTest();
     void setCompletedTest();

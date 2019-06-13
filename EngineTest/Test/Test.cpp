@@ -22,17 +22,17 @@ void Test::setTimeStep(double _T_step)
 
 void Test::setNewTest()
 {
-    isCompletedTest = false;
+    isTested = false;
 }
 
 void Test::setCompletedTest()
 {
-    isCompletedTest = true;
+    isTested = true;
 }
 
 bool Test::getCompletedTest()
 {
-    return isCompletedTest;
+    return isTested;
 }
 
 double Test::getCurrentTime()
