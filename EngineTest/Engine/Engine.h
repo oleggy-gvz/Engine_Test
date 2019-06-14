@@ -41,6 +41,7 @@ public:
     virtual void stepTime(double sec) = 0;
 
     Engine();
+    Engine(double _I, shared_ptr<Interpolation> _M_V, double _T_over, double _H_m, double _H_v, double _C);
     bool isEnable();
     double getTemperature();
     double getOverheatingTemperature();

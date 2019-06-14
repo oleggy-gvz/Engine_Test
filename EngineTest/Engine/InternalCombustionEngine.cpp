@@ -1,15 +1,8 @@
 #include "InternalCombustionEngine.h"
 
 InternalCombustionEngine::InternalCombustionEngine(double _I, shared_ptr<Interpolation> _M_V, double _T_over, double _H_m, double _H_v, double _C)
-{
-    I = _I;
-    M_V = _M_V;
-    T_over = _T_over;
-    H_m = _H_m;
-    H_v = _H_v;
-    C = _C;
-    enable = false;
-}
+ : Engine(_I, _M_V, _T_over, _H_m, _H_v, _C)
+{}
 
 double InternalCombustionEngine::get_V_h()
 {
