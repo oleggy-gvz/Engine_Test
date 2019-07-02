@@ -22,7 +22,7 @@ protected:
     // motor parameters
     shared_ptr<Interpolation> M_V; // dependence of torque (M) on crankshaft rotation speed (V)
     double V_curr; // current crankshaft rotation speed
-    double V_target;
+    double V_target; // target crankshaft rotation speed
     double I; // moment inertia
 
     // protected - temperature can be changed by environment, user cannot change
